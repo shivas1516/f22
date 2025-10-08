@@ -3,12 +3,15 @@ from google.genai import types
 import os
 from dotenv import load_dotenv
 import gradio as gr
+import time
 
 load_dotenv()
 
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 def chat(user_input, history):
+
+    start_time = time.time()
 
     response = client.models.generate_content_stream(
         model="gemini-2.5-flash",
@@ -32,6 +35,9 @@ def chat(user_input, history):
         if chunk.text is not None:
             full_response += chunk.text
             yield full_response  # Yield the accumulated response so far
+
+    endtime = time.time()
+    print(f"Response time: {endtime - start_time} seconds")
 
 demo = gr.ChatInterface(
     title="Gemini LLM Chat Interface",

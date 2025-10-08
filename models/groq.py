@@ -21,11 +21,11 @@ def chat(user_input, history):
             }
         ],
         model="llama-3.3-70b-versatile",
-        temperature=0.5, # For randomness and creativity
-        max_completion_tokens=1024, # Limit the response length
+        temperature=0.5,
+        max_completion_tokens=1024,
         top_p=1,
-        stop=None, 
-        stream=True, # For streaming responses
+        stop=None,
+        stream=True,
     )
 
     full_response = ""
@@ -40,7 +40,7 @@ demo = gr.ChatInterface(
     fn=chat,
     type="messages",
     flagging_mode="manual",
-    flagging_options=["Like", "Dislike"], # Feedback options for the responses
+    flagging_options=["Like", "Dislike"],
     save_history=True,
     autoscroll=True,
     fill_height=True,
